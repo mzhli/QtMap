@@ -1,0 +1,1 @@
+A map display GUI application based on Qt
