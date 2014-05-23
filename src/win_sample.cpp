@@ -1,9 +1,6 @@
 #include "win_sample.h"
-#include <QApplication>
-#include <QLabel>
-#include <QHBoxLayout>
-#include <QSlider>
-#include <QSpinBox>
+#include <QtGui/QtGui>
+#include "sample_dialog.h"
 
 int sample_label( int argc, char* argv[] )
 {
@@ -36,5 +33,15 @@ int sample_layout( int argc, char* argv[] )
     pMainWin->setLayout(pLayout);
     pMainWin->show();
 
+    return app.exec();
+}
+
+int sample_dialog( int argc, char* argv[] )
+{
+    QApplication app(argc, argv);
+
+    SampleDialog* pDialog = new SampleDialog;
+    pDialog->show();
+    
     return app.exec();
 }
