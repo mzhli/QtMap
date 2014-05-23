@@ -1,4 +1,7 @@
+#include "win_sample.h"
+
 int main(int argc, char* argv[])
 {
-    return 0;
+    //return sample_label(argc, argv);
+    return sample_layout(argc, argv);
 }
