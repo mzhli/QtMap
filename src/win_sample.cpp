@@ -41,6 +41,7 @@ int sample_dialog( int argc, char* argv[] )
     QApplication app(argc, argv);
 
     SampleDialog* pDialog = new SampleDialog;
+    pDialog->setFixedSize(400, 100);
     pDialog->show();
     
     return app.exec();
