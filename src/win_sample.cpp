@@ -1,6 +1,7 @@
 #include "win_sample.h"
 #include <QtGui/QtGui>
 #include "sample_dialog.h"
+#include "statecityinput_dialog.h"
 
 int sample_label( int argc, char* argv[] )
 {
@@ -44,5 +45,15 @@ int sample_dialog( int argc, char* argv[] )
     pDialog->setFixedSize(400, 100);
     pDialog->show();
     
+    return app.exec();
+}
+
+int sample_ui_dialog( int argc, char* argv[] )
+{
+    QApplication app(argc, argv);
+
+    StateCityInputDialog* pDialog = new StateCityInputDialog();
+    pDialog->show();
+
     return app.exec();
 }
