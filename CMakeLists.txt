@@ -14,9 +14,11 @@ include_directories(${PROJECT_SOURCE_DIR}/src
 aux_source_directory(${PROJECT_SOURCE_DIR}/src  SRC_FILES)
 
 # moc files with Qt macros
-QT4_WRAP_UI(QtMap_UIC_FILES  ${PROJECT_SOURCE_DIR}/ui/statecityinput.ui)
+QT4_WRAP_UI(QtMap_UIC_FILES  ${PROJECT_SOURCE_DIR}/ui/statecityinput.ui
+                             ${PROJECT_SOURCE_DIR}/ui/sort.ui)
 QT4_WRAP_CPP(QtMap_MOC_FILES  ${PROJECT_SOURCE_DIR}/src/sample_dialog.h
-                              ${PROJECT_SOURCE_DIR}/src/statecityinput_dialog.h)
+                              ${PROJECT_SOURCE_DIR}/src/statecityinput_dialog.h
+                              ${PROJECT_SOURCE_DIR}/src/sort_dialog.h)
 
 # artifact
 add_executable(QtMap  ${SRC_FILES}
