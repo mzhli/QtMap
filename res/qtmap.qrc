@@ -1,0 +1,10 @@
+<RCC>
+  <qresource>
+    <file>images/16x16/Exit.png</file>
+    <file>images/16x16/New document.png</file>
+    <file>images/16x16/Shield.png</file>
+    <file>images/256x256/shield.png</file>
+    <file>images/16x16/Save.png</file>
+    <file>images/16x16/Play.png</file>
+  </qresource>
+</RCC>

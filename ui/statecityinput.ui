@@ -85,6 +85,8 @@
  <tabstops>
   <tabstop>lineEdit</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../res/qtmap.qrc"/>
+ </resources>
  <connections/>
 </ui>

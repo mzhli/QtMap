@@ -207,7 +207,9 @@
   <tabstop>cancelButton</tabstop>
   <tabstop>moreButton</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="../res/qtmap.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>okButton</sender>

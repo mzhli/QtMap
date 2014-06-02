@@ -11,5 +11,7 @@ int sample_dialog(int argc, char* argv[]);
 int sample_ui_dialog(int argc, char* argv[]);
 // An extensible dialog
 int sample_extensible_dialog(int argc, char* argv[]);
+// A sample main window with menus and toolbars
+int sampel_mainwindow(int argc, char* argv[]);
 
 #endif  // _QTMAP_SAMPLE_WIN_H_

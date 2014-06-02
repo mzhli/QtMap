@@ -6,5 +6,6 @@ int main(int argc, char* argv[])
     //return sample_layout(argc, argv);
     //return sample_dialog(argc, argv);
     //return sample_ui_dialog(argc, argv);
-    return sample_extensible_dialog(argc, argv);
+    //return sample_extensible_dialog(argc, argv);
+    return sampel_mainwindow(argc, argv);
 }

@@ -3,6 +3,7 @@
 #include "sample_dialog.h"
 #include "statecityinput_dialog.h"
 #include "sort_dialog.h"
+#include "sample_mainwindow.h"
 
 int sample_label( int argc, char* argv[] )
 {
@@ -65,6 +66,16 @@ int sample_extensible_dialog( int argc, char* argv[] )
 
     SortDialog* pDialog = new SortDialog();
     pDialog->show();
+
+    return app.exec();
+}
+
+int sampel_mainwindow( int argc, char* argv[] )
+{
+    QApplication app(argc, argv);
+
+    MainWindow* pWindow = new MainWindow();
+    pWindow->show();
 
     return app.exec();
 }
