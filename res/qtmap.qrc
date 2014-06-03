@@ -1,5 +1,10 @@
 <RCC>
   <qresource>
+    <file>images/16x16/Help symbol.png</file>
+    <file>images/16x16/Copy.png</file>
+    <file>images/16x16/Cut.png</file>
+    <file>images/16x16/Find.png</file>
+    <file>images/16x16/Paste.png</file>
     <file>images/16x16/Exit.png</file>
     <file>images/16x16/New document.png</file>
     <file>images/16x16/Shield.png</file>
