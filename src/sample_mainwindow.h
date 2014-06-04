@@ -54,6 +54,8 @@ private:
     QAction* m_pSeparateAction;
     QAction* m_pNewAction;
     QAction* m_pOpenAction;
+    QAction* m_pSaveAction;
+    QAction* m_pSaveAsAction;
     QAction* m_pExitAction;
 
     QAction* m_pCopyAction;
@@ -72,7 +74,7 @@ private:
     QMenu* m_pHelpMenu;
 
     QToolBar* m_pFileToolBar;
-    //QToolBar* m_pEditToolBar;
+    QToolBar* m_pEditToolBar;
 };
 
 #endif  // _QTMAP_SAMPLE_MAINWINDOW_H_
