@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file alias="splash-screen">images/splash-screen.jpg</file>
     <file alias="document-save">images/32x32/document-save.png</file>
     <file alias="help-contents">images/32x32/help-contents.png</file>
     <file alias="edit-sort-az">images/32x32/edit-sort-az.png</file>

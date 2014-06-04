@@ -56,6 +56,7 @@ private:
     QAction* m_pOpenAction;
     QAction* m_pSaveAction;
     QAction* m_pSaveAsAction;
+    //QAction* m_pCloseAction;
     QAction* m_pExitAction;
 
     QAction* m_pCopyAction;

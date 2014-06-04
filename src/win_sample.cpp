@@ -74,8 +74,24 @@ int sampel_mainwindow( int argc, char* argv[] )
 {
     QApplication app(argc, argv);
 
-    MainWindow* pWindow = new MainWindow();
-    pWindow->show();
+    QSplashScreen* pSplash = new QSplashScreen;
+    pSplash->setPixmap(QPixmap(":/splash-screen"));
+    pSplash->show();
+
+    Qt::Alignment topRight = Qt::AlignRight | Qt::AlignTop;
+    pSplash->showMessage(QObject::tr("Setting up the main window..."), topRight, Qt::white);
+    MainWindow mainwindow;
+
+    QElapsedTimer timer;
+    timer.start();
+    while (timer.elapsed() < 2000)
+    {
+        QCoreApplication::processEvents();
+    }
+
+    mainwindow.show();
+    pSplash->finish(&mainwindow);
+    delete pSplash;
 
     return app.exec();
 }

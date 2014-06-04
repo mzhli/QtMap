@@ -18,6 +18,9 @@ MainWindow::MainWindow()
 
     setWindowIcon(QIcon(":/images/16x16/Shield.png"));
     SetCurrentFile("");
+
+    // Make Qt release the resource of main window when closed
+    //setAttribute(Qt::WA_DeleteOnClose);
 }
 
 void MainWindow::CreateActions()
@@ -56,6 +59,12 @@ void MainWindow::CreateActions()
         m_recentFileActions[i]->setVisible(false);
         connect(m_recentFileActions[i], SIGNAL(triggered()), this, SLOT(openRecentFile()));
     }
+
+    // "Close"
+    //m_pCloseAction = new QAction(tr("&Close"), this);
+    //m_pCloseAction->setShortcut(QKeySequence::Close);
+    //m_pCloseAction->setStatusTip(tr("Close this window"));
+    //connect(m_pCloseAction, SIGNAL(triggered()), this, SLOT(close()));
 
     // "Exit"
     m_pExitAction = new QAction(tr("E&xit"), this);
@@ -165,12 +174,19 @@ void MainWindow::CreateStatusBar()
 
 void MainWindow::ReadSettings()
 {
+    QSettings settings("Mingzhou Li", "QtMap");
 
+    restoreGeometry(settings.value("geometry").toByteArray());
+    m_recentFiles = settings.value("recentFiles").toStringList();
+    UpdateRecentFileActions();
 }
 
 void MainWindow::WriteSettings()
 {
+    QSettings settings("Mingzhou Li", "QtMap");
 
+    settings.setValue("geometry", saveGeometry());
+    settings.setValue("recentFiles", m_recentFiles);
 }
 
 bool MainWindow::OkToContinue()
@@ -195,11 +211,15 @@ bool MainWindow::OkToContinue()
 
 bool MainWindow::LoadFile( const QString& filename )
 {
+    SetCurrentFile(filename);
+    statusBar()->showMessage(tr("File loaded"), 2000);
     return true;
 }
 
 bool MainWindow::SaveFile( const QString& filename )
 {
+    SetCurrentFile(filename);
+    statusBar()->showMessage(tr("File saved"), 2000);
     return true;
 }
 
@@ -216,17 +236,41 @@ void MainWindow::SetCurrentFile( const QString& filename )
         m_recentFiles.prepend(m_curFile);
         UpdateRecentFileActions();
     }
-    setWindowTitle(filename);
+    setWindowTitle(tr("%1[*] - %2").arg(strShownName, tr("Spreadsheet")));
 }
 
 void MainWindow::UpdateRecentFileActions()
 {
+    // Remove the nonexistent files from list
+    //QMutableStringListIterator it(m_recentFiles);
+    //while (it.hasNext())
+    //{
+    //    if (! QFile::exists(it.next()))
+    //    {
+    //        it.remove();
+    //    }
+    //}
 
+    // Update the recent files actions
+    for (int i = 0; i < MAX_RECENT_FILES; i++)
+    {
+        if (i < m_recentFiles.size())
+        {
+            m_recentFileActions[i]->setText(tr("&%1 %2").arg(QString::number(i + 1), StrippedName(m_recentFiles[i])));
+            m_recentFileActions[i]->setData(m_recentFiles[i]);
+            m_recentFileActions[i]->setVisible(true);
+        }
+        else
+        {
+            m_recentFileActions[i]->setVisible(false);
+        }
+    }
+    m_pSeparateAction->setVisible(!m_recentFiles.isEmpty());
 }
 
 QString MainWindow::StrippedName( const QString& fullFileName )
 {
-    return QString("");
+    return QFileInfo(fullFileName).fileName();
 }
 
 void MainWindow::newFile()
@@ -253,7 +297,14 @@ void MainWindow::open()
 
 bool MainWindow::save()
 {
-    return true;
+    if (m_curFile.isEmpty())
+    {
+        return saveAs();
+    }
+    else
+    {
+        return SaveFile(m_curFile);
+    }
 }
 
 bool MainWindow::saveAs()
@@ -287,7 +338,14 @@ void MainWindow::about()
 
 void MainWindow::openRecentFile()
 {
-
+    if (OkToContinue())
+    {
+        QAction* pAction = qobject_cast<QAction*>(sender());
+        if (pAction != NULL)
+        {
+            LoadFile(pAction->data().toString());
+        }
+    }
 }
 
 void MainWindow::updateStatusBar()
