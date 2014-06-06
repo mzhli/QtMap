@@ -188,3 +188,24 @@ void Spreadsheet::selectCurrentColumn()
     selectColumn(currentColumn());
 }
 
+void Spreadsheet::keyPressEvent( QKeyEvent *event )
+{
+    if (event->key() == Qt::Key_Delete)
+    {
+        QTableWidgetSelectionRange range = selectedRange();
+        for (int row = range.topRow(); row <= range.bottomRow(); row++)
+        {
+            for (int col = range.leftColumn(); col <= range.rightColumn(); col++)
+            {
+                Cell* pCurCell = cell(row, col);
+                if (pCurCell != NULL)
+                {
+                    pCurCell->setData(Qt::EditRole, QString(""));
+                }
+            }
+        }
+        return;
+    }
+    QTableWidget::keyPressEvent(event);
+}
+

@@ -20,6 +20,9 @@ public:
     bool writeFile(const QString& strFileName);
     //void sort(const SpreadsheetCompare& comp);
 
+protected:
+    void keyPressEvent(QKeyEvent *event);
+
 public slots:
     void cut();
     void copy();
