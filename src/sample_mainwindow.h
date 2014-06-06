@@ -4,7 +4,8 @@
 #include <QMainWindow>
 
 class QAction;
-class QTableWidget;
+class Spreadsheet;
+class QLabel;
 
 class MainWindow : public QMainWindow
 {
@@ -45,7 +46,7 @@ private:
     void UpdateRecentFileActions();
     QString StrippedName(const QString& fullFileName);
 
-    QTableWidget* m_pSpreadsheet;
+    Spreadsheet* m_pSpreadsheet;
     QStringList m_recentFiles;
     QString m_curFile;
     
@@ -76,6 +77,8 @@ private:
 
     QToolBar* m_pFileToolBar;
     QToolBar* m_pEditToolBar;
+    QLabel* m_pLocationLabel;
+    QLabel* m_pFormulaLabel;
 };
 
 #endif  // _QTMAP_SAMPLE_MAINWINDOW_H_

@@ -4,7 +4,7 @@
 #include <QTableWidget>
 
 class Cell;
-class SpreadsheetCompare;
+//class SpreadsheetCompare;
 
 class Spreadsheet : public QTableWidget
 {
@@ -13,12 +13,12 @@ public:
     Spreadsheet(QWidget* pParent = NULL);
 
     QString currentLocation() const;
-    QString currentFormula() const;
+    //QString currentFormula() const;
     QTableWidgetSelectionRange selectedRange() const;
     void clear();
     bool readFile(const QString& strFileName);
     bool writeFile(const QString& strFileName);
-    void sort(const SpreadsheetCompare& comp);
+    //void sort(const SpreadsheetCompare& comp);
 
 public slots:
     void cut();
@@ -28,7 +28,7 @@ public slots:
     void selectCurrentRow();
     void selectCurrentColumn();
 
-public signals:
+signals:
     void modified();
 
 private slots:
@@ -46,13 +46,13 @@ private:
     QString text(int row, int column) const;
 };
 
-class SpreadsheetCompare
-{
-public:
-    bool operator () (const QStringList& row1, const QStringList& row2) const;
-    enum { KeyCount = 3 };
-    int keys[KeyCount];
-    bool ascending[KeyCount];
-};
+//class SpreadsheetCompare
+//{
+//public:
+//    bool operator () (const QStringList& row1, const QStringList& row2) const;
+//    enum { KeyCount = 3 };
+//    int keys[KeyCount];
+//    bool ascending[KeyCount];
+//};
 
 #endif  // _QTMAP_SPREAD_SHEET_H_

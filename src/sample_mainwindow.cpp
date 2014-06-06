@@ -1,11 +1,12 @@
 #include <QtGui/QtGui>
 #include "sample_mainwindow.h"
 #include "sort_dialog.h"
+#include "spreadsheet.h"
 
 
 MainWindow::MainWindow()
 {
-    m_pSpreadsheet = new QTableWidget;
+    m_pSpreadsheet = new Spreadsheet;
     setCentralWidget(m_pSpreadsheet);
 
     CreateActions();
@@ -156,18 +157,18 @@ void MainWindow::CreateContextMenu()
 
 void MainWindow::CreateStatusBar()
 {
-    QLabel* pLocationLabel = new QLabel("W999 ");
-    pLocationLabel->setAlignment(Qt::AlignHCenter);
-    pLocationLabel->setMinimumSize(pLocationLabel->sizeHint());
+    m_pLocationLabel = new QLabel("W999 ");
+    m_pLocationLabel->setAlignment(Qt::AlignHCenter);
+    m_pLocationLabel->setMinimumSize(m_pLocationLabel->sizeHint());
 
-    QLabel* pFormulaLabel = new QLabel;
-    pFormulaLabel->setIndent(3);
+    m_pFormulaLabel = new QLabel;
+    m_pFormulaLabel->setIndent(3);
 
-    statusBar()->addWidget(pLocationLabel);
-    statusBar()->addWidget(pFormulaLabel, 1);
+    statusBar()->addWidget(m_pLocationLabel);
+    statusBar()->addWidget(m_pFormulaLabel, 1);
 
-    //connect(m_pSpreadsheet, SIGNAL(currentCellChanged()), this, SLOT(updateStatusBar()));
-    //connect(m_pSpreadsheet, SIGNAL(modified()), this, SLOT(spreadsheetModifed()));
+    connect(m_pSpreadsheet, SIGNAL(currentCellChanged(int, int, int, int)), this, SLOT(updateStatusBar()));
+    connect(m_pSpreadsheet, SIGNAL(modified()), this, SLOT(spreadsheetModifed()));
 
     updateStatusBar();
 }
@@ -211,6 +212,12 @@ bool MainWindow::OkToContinue()
 
 bool MainWindow::LoadFile( const QString& filename )
 {
+    if (! m_pSpreadsheet->readFile(filename))
+    {
+        statusBar()->showMessage(tr("Loading canceled"), 2000);
+        return false;
+    }
+
     SetCurrentFile(filename);
     statusBar()->showMessage(tr("File loaded"), 2000);
     return true;
@@ -218,6 +225,12 @@ bool MainWindow::LoadFile( const QString& filename )
 
 bool MainWindow::SaveFile( const QString& filename )
 {
+    if (! m_pSpreadsheet->writeFile(filename))
+    {
+        statusBar()->showMessage(tr("Saving canceled"), 2000);
+        return false;
+    }
+
     SetCurrentFile(filename);
     statusBar()->showMessage(tr("File saved"), 2000);
     return true;
@@ -242,14 +255,14 @@ void MainWindow::SetCurrentFile( const QString& filename )
 void MainWindow::UpdateRecentFileActions()
 {
     // Remove the nonexistent files from list
-    //QMutableStringListIterator it(m_recentFiles);
-    //while (it.hasNext())
-    //{
-    //    if (! QFile::exists(it.next()))
-    //    {
-    //        it.remove();
-    //    }
-    //}
+    QMutableStringListIterator it(m_recentFiles);
+    while (it.hasNext())
+    {
+        if (! QFile::exists(it.next()))
+        {
+            it.remove();
+        }
+    }
 
     // Update the recent files actions
     for (int i = 0; i < MAX_RECENT_FILES; i++)
@@ -350,7 +363,7 @@ void MainWindow::openRecentFile()
 
 void MainWindow::updateStatusBar()
 {
-
+    m_pLocationLabel->setText(m_pSpreadsheet->currentLocation());
 }
 
 void MainWindow::spreadsheetModifed()

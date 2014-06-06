@@ -19,7 +19,8 @@ QT4_WRAP_UI(QtMap_UIC_FILES  ${PROJECT_SOURCE_DIR}/ui/statecityinput.ui
 QT4_WRAP_CPP(QtMap_MOC_FILES  ${PROJECT_SOURCE_DIR}/src/sample_dialog.h
                               ${PROJECT_SOURCE_DIR}/src/statecityinput_dialog.h
                               ${PROJECT_SOURCE_DIR}/src/sort_dialog.h
-                              ${PROJECT_SOURCE_DIR}/src/sample_mainwindow.h)         
+                              ${PROJECT_SOURCE_DIR}/src/sample_mainwindow.h
+                              ${PROJECT_SOURCE_DIR}/src/spreadsheet.h)         
 QT4_ADD_RESOURCES(QtMap_RES_FILES  ${PROJECT_SOURCE_DIR}/res/qtmap.qrc)
 
 # artifact
